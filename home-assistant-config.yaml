@@ -1,0 +1,47 @@
+climate:
+  - platform: mqtt
+    name: "Living Room"
+    availability_topic: "tele/tasmota_B0FCB0/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    current_temperature_topic: "tele/tasmota_B0FCB0/SENSOR"
+    current_temperature_template: "{{ value_json.MiElHVAC.Temperature }}"
+    precision: 1.0
+    temperature_state_topic: "tele/tasmota_B0FCB0/HVACSETTINGS"
+    temperature_state_template: "{{ value_json.Temp }}"
+    temperature_unit: 'C'
+    temp_step: 1
+    min_temp: 16
+    max_temp: 31
+    temperature_command_topic: "cmnd/tasmota_B0FCB0/HVACSetTemp"
+    mode_state_topic: "tele/tasmota_B0FCB0/HVACSETTINGS"
+    mode_state_template: "{{ value_json.HAMode }}"
+    modes:
+      - "off"
+      - "auto"
+      - "heat"
+      - "dry"
+      - "cool"
+      - "fan_only"
+    mode_command_topic: "cmnd/tasmota_B0FCB0/HVACSetHAMode"
+    action_topic: "tele/tasmota_B0FCB0/HVACSETTINGS"
+    action_template: "{{ value_json.HAMode|regex_replace(find='heat', replace='heating', ignorecase=False)|regex_replace(find='cool', replace='cooling', ignorecase=False)|regex_replace(find='dry', replace='drying', ignorecase=False)|regex_replace(find='fan_only', replace='fan', ignorecase=False) }}"
+    swing_mode_command_topic: "cmnd/tasmota_B0FCB0/HVACSetSwingV"
+    swing_mode_state_topic: "tele/tasmota_B0FCB0/HVACSETTINGS"
+    swing_mode_state_template: "{{ value_json.SwingV }}"
+    swing_modes:
+      - "swing"
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+      - "5"
+    fan_mode_state_topic: "tele/tasmota_B0FCB0/HVACSETTINGS"
+    fan_mode_state_template: "{{ value_json.FanSpeed }}"
+    fan_modes:
+      - "auto"
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+    fan_mode_command_topic: "cmnd/tasmota_B0FCB0/HVACSetFanSpeed"
